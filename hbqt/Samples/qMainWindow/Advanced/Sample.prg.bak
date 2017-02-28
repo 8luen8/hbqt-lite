@@ -26,12 +26,11 @@ PROCEDURE Main ()
    /* hb_gtsys() */
    hb_gtsys()
 
-   oApp := QApplication():new()
-
    oWindow := qt_FMain():new()
 
    oWindow:show()
 
+   oApp := QApplication():new()
    oApp:exec()
 
 RETURN
@@ -418,7 +417,7 @@ METHOD QT_FMain:showMessage(cText)
 
    LOCAL oMB
 
-   oMB := QMessageBox():new(QMessageBox_Information,"Information",cText,QMessageBox_Ok,self)
+   oMB := QMessageBox():new(QMessageBox_Information,"Informação",cText,QMessageBox_Ok,self)
 
    oMB:exec()
 

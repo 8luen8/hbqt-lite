@@ -47,14 +47,15 @@ https://sourceforge.net/projects/qtcontribs/files/HbDBU/
 ## Credits
 
 ### Pritpal Bedi
-a student of software analysis & concepts
+A student of software analysis & concepts
 
 
 
-## TODO
+## Samples Folder
 
 ### Add Samples Folder
-Will have samples to use hbqt classes/objects
+Add qMainWindow Samples
+You are invited to send your samples using hbqt classes/objects
 
 
 

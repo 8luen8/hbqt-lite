@@ -18,9 +18,6 @@ PROCEDURE Main ()
    lOCAL oApp
    LOCAL oWindow
 
-   /* hbqt_errorsys() */
-   hbqt_errorsys()
-
    oApp := QApplication():new()
 
    oWindow := QMainWindow():new()
