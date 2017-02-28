@@ -54,8 +54,8 @@ A student of software analysis & concepts
 ## Samples Folder
 
 ### Add Samples Folder
-Add qMainWindow Samples
-You are invited to send your samples using hbqt classes/objects
+#### Add qMainWindow Samples
+#### You are invited to send your samples using hbqt classes/objects
 
 
 
