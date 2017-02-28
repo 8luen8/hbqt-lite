@@ -11,59 +11,99 @@
 //
 // *---------------------------------------------------------------------------*
 
-#include "hbqtgui.ch"
 #include "hbclass.ch"
+#include "hbqtgui.ch"
+#include "hbtrace.ch"
 
 PROCEDURE Main ()
 
    lOCAL oApp
    LOCAL oWindow
 
-   oApp := QApplication():new()
+   /* hbqt_errorsys() */
+   hbqt_errorsys()
+
+   /* hb_gtsys() */
+   hb_gtsys()
 
    oWindow := qt_FMain():new()
 
    oWindow:show()
 
+   oApp := QApplication():new()
    oApp:exec()
 
 RETURN
+
+// *---------------------------------------------------------------------------*
+// hb_gtsys()
+// *---------------------------------------------------------------------------*
+PROCEDURE hb_gtsys()
+
+   REQUEST DBFCDX
+
+   REQUEST HB_LANG_PT
+   REQUEST HB_CODEPAGE_UTF8
+   REQUEST HB_CODEPAGE_UTF8EX
+
+   /* SET AMBIENT */
+   SET AUTOPEN ON
+   SET AUTORDER TO 1
+   SET BELL OFF
+   SET CENTURY ON
+   SET CONFIRM ON
+   SET DELETED ON
+   SET ECHO OFF
+   SET ESCAPE ON
+   SET EPOCH TO Year( Date() ) - 50
+   SET INTENSITY ON
+   SET SAFETY OFF
+   SET SCOREBOARD OFF
+   SET SOFTSEEK OFF
+   SET STATUS OFF
+   SET TALK OFF
+   SET TYPEAHEAD TO 16
+   SET WRAP ON
+
+   /* RDD */
+   RDDSETDEFAULT('DBFCDX')
+   DBSETDRIVER('DBFCDX')
+
+   SET( _SET_CODEPAGE, "UTF8EX" )
+
+   hb_langSelect( 'pt' )
+   hb_cdpSelect( "UTF8EX" )
+
+   RETURN
 
 // *---------------------------------------------------------------------------*
 // CLASS qt_FMain
 // *---------------------------------------------------------------------------*
 CREATE CLASS qt_FMain INHERIT hb_QMainWindow
 
-   DATA oMenuBar
-   DATA oMenu1
-   DATA oActionNew
-   DATA oActionOpen
-   DATA oActionSave
-   DATA oMenu2
-   DATA oActionCut
-   DATA oActionCopy
-   DATA oActionPaste
-   DATA oMenu3
-   DATA oActionAbout
-   DATA oActionAboutxH
-   DATA oActionAboutCC
-   DATA oActionAboutQt
-   DATA oActionAbout_hbqt
-   DATA oToolBar
-   DATA oStatusBar
-
    EXPORTED:
 
+   DATA   oMainMenu
+
+   DATA   hActions                         INIT hb_hash()
+   DATA   hMenuItems                       INIT hb_hash()
+   DATA   hObjects                         INIT hb_hash()
+   DATA   hStatusBarItems                  INIT hb_hash()
+
    METHOD Init( ... )
-   METHOD defineProperties
-   METHOD createMenuBar
-   METHOD createToolBar
-   METHOD createStatusBar
-   METHOD defineEvents
-   METHOD closeMainWindow
-   METHOD showMessage
 
    PROTECTED:
+
+   METHOD Actions_Create()
+   METHOD Menu_Create()
+   METHOD Menu_update()
+   METHOD setProperties()
+   METHOD showMessage(cText)
+   METHOD StatusBar_Update()
+   METHOD StatusBar_Create()
+   METHOD ToolBar_Create()
+
+   METHOD __onExit( oEvent )
 
 END CLASS
 
@@ -74,167 +114,311 @@ METHOD Init(...) CLASS qt_FMain
 
    /* qt_FMain */
    ::super:Init( ... )
-   ::defineProperties()
-//   ::createMenuBar()
-//    ::createToolBar()
-//   ::createStatusBar()
-// ::defineEvents()
 
-RETURN self
+   /* setProperties */
+   ::setProperties()
 
-/*
-  o método 'defineProperties' define as propriedades
-  'title' e 'size' da janela principal
-*/
-METHOD defineProperties () CLASS qt_FMain
+   /* hActions */
+   ::Actions_Create()
 
-   ::setWindowTitle("hbqt: QMainWindow")
+   /* oMainMenu */
+   ::Menu_Create()
+
+   /* ::hObjects['TBarActions'] */
+   ::ToolBar_Create()
+
+   /* ::hObjects['StatusBar'] */
+   ::StatusBar_Create()
+
+   /* QEvent_ContextMenu */
+   ::connect( QEvent_ContextMenu,    { |qEvent| ::hObjects['ContextMenu']:exec( qEvent:globalPos() ) } )
+
+   /* QEvent_Close */
+   ::connect( QEvent_Close,          { |oEvent| ::__onExit( oEvent ) } )
+
+   /* ::hObjects['Timer'] */
+   WITH OBJECT ::hObjects['Timer'] := QTimer()
+      :connect( "timeout()", { || ::StatusBar_Update() } )
+      :start( 1500 )
+   END WITH
+
+   RETURN( Self )
+
+// *---------------------------------------------------------------------------*
+// QT_FMain:setProperties()
+// *---------------------------------------------------------------------------*
+METHOD QT_FMain:setProperties()
+
+   /* WindowTitle */
+   ::setWindowTitle("hbqt: QMainWindow Advanced")
+
+   /* resize */
    ::resize(800,600)
 
-RETURN self
+   /* ContextMenuPolicy */
+   ::setContextMenuPolicy( Qt_NoContextMenu )
 
-/*
-  o método 'createMenuBar' cria os menus da janela principal
-  e configura a ação que cada item do menu irá executar
-*/
-METHOD createMenuBar () CLASS qt_FMain
+   /* QIcon */
+   ::setwindowicon( QIcon( '..\..\Images\Imatech.png' ) )
 
-   ::oMenuBar := ::menuBar()
+   RETURN( Self )
 
-   ::oMenu1 := ::oMenuBar:addMenu("&Arquivo")
+// *---------------------------------------------------------------------------*
+// QT_FMain:Actions_Create()
+// *---------------------------------------------------------------------------*
+METHOD QT_FMain:Actions_Create()
 
-   ::oActionNew := ::oMenu1:AddAction(QIcon():new("images\new.png"),"&Novo")
-   ::oActionNew:setStatusTip("Executa a opção NOVO")
-   ::oActionAboutxH:connect( "triggered()", { || ::showMessage( "Arquivo/Novo" ) } )
+   WITH OBJECT ::hActions[ "File_New" ] := QAction( ::tr( "New" ), Self )
+      :setIcon( QIcon( "..\..\images\new.png" ) )
+      :setTooltip( ::tr( "File/New" ) )
+      :connect( "triggered()", { || ::showMessage( "File/New" ) } )
+   END WITH
 
-   ::oActionOpen := ::oMenu1:AddAction(QIcon():new("images\open.png"),"&Abrir")
-   ::oActionOpen:setStatusTip("Executa a opção ABRIR")
-   ::oActionAboutxH:connect( "triggered()", { || ::showMessage( "Arquivo/Abrir" ) } )
+   WITH OBJECT ::hActions[ "File_Open" ] := QAction( ::tr( "Open" ), Self )
+      :setIcon( QIcon( "..\..\images\Open.png" ) )
+      :setTooltip( ::tr( "File/Open" ) )
+      :connect( "triggered()", { || ::showMessage( "File/Open" ) } )
+   END WITH
 
-   ::oActionSave := ::oMenu1:AddAction(QIcon():new("images\save.png"),"&Salvar")
-   ::oActionSave:setStatusTip("Executa a opção SALVAR")
-   ::oActionAboutxH:connect( "triggered()", { || ::showMessage( "Arquivo/Salvar" ) } )
+   WITH OBJECT ::hActions[ "File_Save" ] := QAction( ::tr( "Save" ), Self )
+      :setIcon( QIcon( "..\..\images\Save.png" ) )
+      :setTooltip( ::tr( "File/Save" ) )
+      :connect( "triggered()", { || ::showMessage( "File/Save" ) } )
+   END WITH
 
-   ::oMenu2 := ::oMenuBar:AddMenu("&Editar")
+   WITH OBJECT ::hActions[ "File_Exit" ] := QAction( ::tr( "Close" ) + CHR( 27 ) + "Alt+F4", Self )
+      :setIcon( QIcon( '..\..\images\tool_ExitApp_32.png' ) )
+      :setTooltip( ::tr( "File/Close" ) )
+      :connect( "triggered()", { || ::close() } )
+   END WITH
 
-   ::oActionCut := ::oMenu2:AddAction(QIcon():New("images\cut.png"),"&Recortar")
-   ::oActionCut:setStatusTip("Executa a opção RECORTAR")
-   ::oActionAboutxH:connect( "triggered()", { || ::showMessage( "Editar/Recortar" ) } )
+   WITH OBJECT ::hActions[ "Edit_cut" ] := QAction( ::tr( "Cut" ), Self )
+      :setIcon( QIcon( '..\..\images\cut.png' ) )
+      :setTooltip( ::tr( "Edit/Cut" ) )
+      :connect( "triggered()", { || ::showMessage( "Edit/Cut" ) } )
+   END WITH
 
-   ::oActionCopy := ::oMenu2:AddAction(QIcon():new("images\copy.png"),"&Copiar")
-   ::oActionCopy:setStatusTip("Executa a opção COPIAR")
-   ::oActionAboutxH:connect( "triggered()", { || ::showMessage( "Editar/Copiar" ) } )
+   WITH OBJECT ::hActions[ "Edit_copy" ] := QAction( ::tr( "copy" ), Self )
+      :setIcon( QIcon( '..\..\images\copy.png' ) )
+      :setTooltip( ::tr( "Edit/Copy" ) )
+      :connect( "triggered()", { || ::showMessage( "Edit/copy" ) } )
+   END WITH
 
-   ::oActionPaste := ::oMenu2:AddAction(QIcon():New("images\paste.png"),"C&olar")
-   ::oActionPaste:setStatusTip("Executa a opção COLAR")
-   ::oActionAboutxH:connect( "triggered()", { || ::showMessage( "Editar/Colar" ) } )
+   WITH OBJECT ::hActions[ "Edit_paste" ] := QAction( ::tr( "paste" ), Self )
+      :setIcon( QIcon( '..\..\images\paste.png' ) )
+      :setTooltip( ::tr( "Edit/paste" ) )
+      :connect( "triggered()", { || ::showMessage( "Edit/paste" ) } )
+   END WITH
 
-   ::oMenu3 := ::oMenuBar:AddMenu("&Sobre")
+   WITH OBJECT ::hActions[ "Help_Sample" ] := QAction( ::tr( "Sample" ), Self )
+      :setTooltip( ::tr( "Help/Sample" ) )
+      :connect( "triggered()", { || ::showMessage( "Sample for qtMainWindow" ) } )
+   END WITH
 
-   ::oActionAbout := ::oMenu3:AddAction("&Exemplo")
-   ::oActionAbout:setStatusTip("Exibe informações sobre este exemplo")
-   ::oActionAboutxH:connect( "triggered()", { || ::showMessage( "Sample for qtMainWindow" ) } )
+   WITH OBJECT ::hActions[ "Help_Harbour" ] := QAction( ::tr( "Harbour" ), Self )
+      :setTooltip( ::tr( "Help/Harbour" ) )
+      :connect( "triggered()", { || ::showMessage( version() ) } )
+   END WITH
 
-   ::oActionAboutxH := ::oMenu3:AddAction("&[x]Harbour")
-   ::oActionAboutxH:setStatusTip("Exibe a versão do Harbour/xHarbour")
-   ::oActionAboutxH:connect( "triggered()", { || ::showMessage( version() ) } )
+   WITH OBJECT ::hActions[ "Help_compiler" ] := QAction( ::tr( "compiler" ), Self )
+      :setTooltip( ::tr( "Help/compiler" ) )
+      :connect( "triggered()", { || ::showMessage( hb_compiler() ) } )
+   END WITH
 
+   WITH OBJECT ::hActions[ "Help_Qt_Framework" ] := QAction( ::tr( "Qt Framework" ), Self )
+      :setTooltip( ::tr( "Help/Qt Framework" ) )
+      :connect( "triggered()", { || QApplication():aboutQt() } )
+   END WITH
 
-   ::oActionAboutCC := ::oMenu3:AddAction("&C/C++ Compiler")
-   ::oActionAboutCC:setStatusTip("Exibe informações sobre o compilador C/C++")
-   ::oActionAboutxH:connect( "triggered()", { || ::showMessage( hb_compiler() ) } )
+   RETURN( Self )
 
-   ::oActionAboutQt := ::oMenu3:AddAction("&Qt Framework")
-   ::oActionAboutQt:setStatusTip("Exibe informações sobre o Qt Framework")
-   ::oActionAboutxH:connect( "triggered()", { || QApplication():aboutQt() } )
+// *---------------------------------------------------------------------------*
+// QT_FMain:Menu_Create()
+// *---------------------------------------------------------------------------*
+METHOD QT_FMain:Menu_Create()
 
-   ::oActionAbout_hbqt := ::oMenu3:AddAction("&Qt5xHb")
-   ::oActionAbout_hbqt:setStatusTip("Exibe a versão da hbqt")
-   ::oActionAboutxH:connect( "triggered()", { || ::showMessage( version() ) } )
+   /* oMainMenu */
+   ::oMainMenu := ::menuBar()
 
-RETURN self
+   /* hMenuItems[ "File" ] */
+   WITH OBJECT ::hMenuItems[ "File" ] := QMenu( ::oMainMenu )
+      :setTitle( ::tr( "&File" ) )
+      :addAction( ::hActions[ "File_New" ] )
+      :addAction( ::hActions[ "File_Open" ] )
+      :addAction( ::hActions[ "File_Save" ] )
+      :addSeparator()
+      :addAction( ::hActions[ "File_Exit" ] )
+   END WITH
+   ::oMainMenu:addMenu( ::hMenuItems[ "File" ] )
 
-/*
-  o método 'createToolBar' cria a barra de ferramentas da janela principal
-  e configura a ação que cada botão irá executar
-*/
-METHOD createToolBar () CLASS qt_FMain
+   /* hMenuItems[ "Edit" ] */
+   WITH OBJECT ::hMenuItems[ "Edit" ] := QMenu( ::oMainMenu )
+      :setTitle( ::tr( "&Edit" ) )
+      :addAction( ::hActions[ "Edit_cut" ] )
+      :addAction( ::hActions[ "Edit_copy" ] )
+      :addAction( ::hActions[ "Edit_paste" ] )
+   END WITH
+   ::oMainMenu:addMenu( ::hMenuItems[ "Edit" ] )
 
-   ::oToolBar := ::addToolBar("")
+   /* hMenuItems[ "Help" ] */
+   WITH OBJECT ::hMenuItems[ "Help" ] := QMenu( ::oMainMenu )
+      :setTitle( ::tr( "&Help" ) )
+      :addAction( ::hActions[ "Help_Sample" ] )
+      :addAction( ::hActions[ "Help_Harbour" ] )
+      :addAction( ::hActions[ "Help_compiler" ] )
+      :addSeparator()
+      :addAction( ::hActions[ "Help_Qt_Framework" ] )
+   END WITH
+   ::oMainMenu:addMenu( ::hMenuItems[ "Help" ] )
 
-   ::oToolBar:addAction(::oActionNew)
-   ::oToolBar:addAction(::oActionOpen)
-   ::oToolBar:addAction(::oActionSave)
+   RETURN( Self )
 
-   ::oToolBar:addSeparator()
+// *---------------------------------------------------------------------------*
+// QT_FMain:ToolBar_Create()
+// *---------------------------------------------------------------------------*
+METHOD QT_FMain:ToolBar_Create()
 
-   ::oToolBar:addAction(::oActionCut)
-   ::oToolBar:addAction(::oActionCopy)
-   ::oToolBar:addAction(::oActionPaste)
+   /* ::hObjects['TBar_File'] */
+   WITH OBJECT ::hObjects['TBar_File'] := QToolbar( "Actions Bar", Self )
+      /* Configure */
+      :setToolButtonStyle( Qt_ToolButtonTextUnderIcon )
+      :setIconSize( QSize( 48, 48 ) )
+      :setFloatable( .T. )
+      :setMovable( .T. )
+      /* Actions */
+      :addAction( ::hActions[ "File_New" ] )
+      :addAction( ::hActions[ "File_Open" ] )
+      :addAction( ::hActions[ "File_Save" ] )
+   END WITH
+   ::addToolBar( Qt_TopToolBarArea, ::hObjects['TBar_File'] )
 
-RETURN self
+   /* ::hObjects['TBar_Edit'] */
+   WITH OBJECT ::hObjects['TBar_Edit'] := QToolbar( "Tolls Bar", Self )
+      /* Configure */
+      :setToolButtonStyle( Qt_ToolButtonTextUnderIcon )
+      :setIconSize( QSize( 48, 48 ) )
+      :setFloatable( .T. )
+      :setMovable( .T. )
+      /* Actions */
+      :addAction( ::hActions[ "Edit_cut" ] )
+      :addAction( ::hActions[ "Edit_copy" ] )
+      :addAction( ::hActions[ "Edit_paste" ] )
+   END WITH
+   ::addToolBar( Qt_TopToolBarArea, ::hObjects['TBar_Edit'] )
 
-/*
-  o método 'createStatusBar' cria a barra de status
-*/
-METHOD createStatusBar () CLASS qt_FMain
+   /* ::hObjects['TBar_Exit'] */
+   WITH OBJECT ::hObjects['TBar_Exit'] := QToolbar( "Exit Bar", Self )
+      /* Configure */
+      :setToolButtonStyle( Qt_ToolButtonTextUnderIcon )
+      :setIconSize( QSize( 48, 48 ) )
+      :setFloatable( .T. )
+      :setMovable( .T. )
+      /* Actions */
+      :addAction( ::hActions[ "File_Exit" ] )
+   END WITH
+   ::addToolBar( Qt_TopToolBarArea, ::hObjects['TBar_Exit'] )
 
-   ::oStatusBar := ::statusBar()
+   /* ::hObjects['ContextMenu'] */
+   WITH OBJECT ::hObjects['ContextMenu'] := ::createPopupMenu( Self )
+      :addSeparator()
+      :addAction( ::hActions[ "Edit_cut" ] )
+      :addAction( ::hActions[ "Edit_copy" ] )
+      :addAction( ::hActions[ "Edit_paste" ] )
+      :addSeparator()
+      :addAction( ::hActions[ "File_Exit" ] )
+   END WITH
 
-RETURN self
+   RETURN( Self )
 
-/*
- o método 'defineEvent' define os eventos que serão processados
-*/
-METHOD defineEvents () CLASS qt_FMain
+// *---------------------------------------------------------------------------*
+// QT_FMain:StatusBar_Create()
+// *---------------------------------------------------------------------------*
+METHOD QT_FMain:StatusBar_Create()
 
-   ::onCloseEvent({|w,e|::CloseMainWindow(w,e)})
+   LOCAL oFont
+   LOCAL oImage := Array( 4 )
 
-RETURN self
+   oFont := ::font()
+   oFont:setBold( .T. )
 
-/*
- o método 'closeMainWindow' confirma, com o usuário, se quer
- realmente sair do programa
-*/
-METHOD closeMainWindow (w,e) CLASS qt_FMain
+   oImage[1] := '<img src=' + "..\..\images\led_off_20.png" + '>'
+   oImage[2] := '<img src=' + "..\..\images\led_blue_20.png" + '>'
+   oImage[3] := '<img src=' + "..\..\images\led_green_20.png" + '>'
+   oImage[4] := '<img src=' + "..\..\images\led_orange_20.png" + '>'
+
+   WITH OBJECT ::hStatusBarItems[ "Message" ] := QLabel( Self )
+      :setAlignment( Qt_AlignCenter )
+      :setText( 'Advanced: Sample for qtMainWindow' )
+   END WITH
+   WITH OBJECT ::hStatusBarItems[ "Caps_Lock" ] := QLabel( Self )
+      :setAlignment( Qt_AlignCenter )
+      :setText( 'Caps Lock ' + IIF( .T., oImage[2], oImage[1] ) )
+   END WITH
+   WITH OBJECT ::hStatusBarItems[ "Num_Lock" ] := QLabel( Self )
+      :setAlignment( Qt_AlignCenter )
+      :setText( 'Num Lock ' + IIF( .T., oImage[3], oImage[1] ) )
+   END WITH
+   WITH OBJECT ::hStatusBarItems[ "Key_Insert" ] := QLabel( Self )
+      :setAlignment( Qt_AlignCenter )
+      :setText( 'Insert ' + IIF( .T., oImage[4], oImage[1] ) )
+   END WITH
+
+   /* ::hObjects['StatusBar'] */
+   WITH OBJECT ::hObjects['StatusBar'] := ::statusBar( Self )
+      :addPermanentWidget( ::hStatusBarItems[ "Message" ], 10 )
+      :addPermanentWidget( ::hStatusBarItems[ "Caps_Lock" ], 1 )
+      :addPermanentWidget( ::hStatusBarItems[ "Num_Lock" ], 1 )
+      :addPermanentWidget( ::hStatusBarItems[ "Key_Insert" ], 1 )
+      :setMaximumHeight( 32 )
+      :setMinimumHeight( 32 )
+      :setSizeGripEnabled( .T. )
+      :setStyleSheet( "QStatusBar::item { border: 1px solid darkgray; border-radius: 3px; }" )
+   END WITH
+
+   ::setStatusBar( ::hObjects['StatusBar'] )
+
+   RETURN( Self )
+
+// *---------------------------------------------------------------------------*
+// QT_FMain:Menu_update()
+// *---------------------------------------------------------------------------*
+METHOD QT_FMain:Menu_update()
+   RETURN( Self )
+
+// *---------------------------------------------------------------------------*
+// QT_FMain:StatusBar_Update()
+// *---------------------------------------------------------------------------*
+METHOD QT_FMain:StatusBar_Update()
+   RETURN( Self )
+
+// *---------------------------------------------------------------------------*
+// QT_FMain:__onExit()
+// *---------------------------------------------------------------------------*
+METHOD QT_FMain:__onExit( oEvent )
+
+   /* if !... clipboard:clear() */
+   IF !( hb_osIsWinVista() )
+      QApplication():clipboard:clear( QClipboard_Clipboard )
+      QApplication():clipboard:clear( QClipboard_Selection )
+   ENDIF
+
+   /* close objects */
+   ::hObjects['Timer']:stop()
+
+   /* oEvent:Accept() */
+   oEvent:Accept()
+
+RETURN( .F. )
+
+// *---------------------------------------------------------------------------*
+// QT_FMain:showMessage(cText)
+// *---------------------------------------------------------------------------*
+METHOD QT_FMain:showMessage(cText)
 
    LOCAL oMB
-   LOCAL nRet
-   LOCAL oEvent := QEvent():newfrom(e)
 
-   oMB := QMessageBox():new(QMessageBox_Question,;
-                            "Atenção",;
-                            "Quer realmente sair do programa ?" + str( w ),;
-                            QMessageBox_Yes+QMessageBox_No,;
-                            self,;
-                            Qt_Dialog+Qt_MSWindowsFixedSizeDialogHint)
-
-   nRet := oMB:exec()
-
-   oMB:delete()
-
-   IF nRet == QMessageBox_Yes
-      oEvent:accept()
-   endif
-
-   IF nRet == QMessageBox_No
-      oEvent:ignore()
-   endif
-
-RETURN .T.
-
-/*
-  o método 'showMessage' exibe uma janela com uma mensagem,
-  usando a classe QMessageBox
-*/
-METHOD showMessage (cText) CLASS qt_FMain
-
-   LOCAL oMB
-
-   oMB := QMessageBox():new(QMessageBox_Information,"Informação",cText,QMessageBox_Ok,self)
+   oMB := QMessageBox():new(QMessageBox_Information,"InformaÃ§Ã£o",cText,QMessageBox_Ok,self)
 
    oMB:exec()
-
-   oMB:delete()
 
 RETURN NIL
