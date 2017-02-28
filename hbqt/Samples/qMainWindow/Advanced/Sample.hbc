@@ -1,0 +1,27 @@
+#
+# Flags
+#
+mt=yes
+
+#
+# .hbc Files - hb
+#
+libs=hbct.hbc
+libs=hbfimage.hbc
+libs=hbhpdf.hbc
+libs=hbmemio.hbc
+libs=hbmisc.hbc
+libs=hbmzip.hbc
+libs=hbsqlit3.hbc
+libs=hbssl.hbc
+libs=hbtip.hbc
+libs=hbwin.hbc
+libs=hbzebra.hbc
+libs=hbmxml.hbc
+
+#
+# .hbc Files - hbQT
+#
+# libs=lhbqtsql.hbc 
+# libs=hbqtwidgets.hbc
+libs=hbqt.hbc
