@@ -1,0 +1,51 @@
+/*
+ * $Id: QsciDocument.qth 400 2015-02-02 08:27:21Z bedipritpal $
+ */
+
+/*
+ * Harbour Qt wrapper generator control file
+ *
+ * Copyright 2009-2010 Pritpal Bedi <bedipritpal@hotmail.com>
+ * www - http://www.harbour-project.org
+ *
+ * See COPYING for licensing terms.
+ */
+
+<CLASS>
+QObject  = no
+Inherits =
+</CLASS>
+
+<CODE>
+#include <qsci/qscidocument.h>
+
+
+/*
+ * QsciDocument ()
+ * QsciDocument (const QsciDocument &)
+ *
+ */
+HB_FUNC( QT_QSCIDOCUMENT )
+{
+   if( HB_ISOBJECT( 1 ) )
+   {
+      __HB_RETPTRGC__( new QsciDocument( *hbqt_par_QsciDocument( 1 ) ) );
+   }
+   else
+   {
+      __HB_RETPTRGC__( new QsciDocument() );
+   }
+}
+</CODE>
+
+<ENUMS>
+</ENUMS>
+
+<PROTOS>
+</PROTOS>
+
+<SLOTS>
+</SLOTS>
+
+<SIGNALS>
+</SIGNALS>

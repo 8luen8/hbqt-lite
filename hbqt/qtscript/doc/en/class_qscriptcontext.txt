@@ -1,0 +1,60 @@
+
+/* $DOC$
+   $TEMPLATE$
+      Class
+   $NAME$
+      QScriptContext()
+   $CATEGORY$
+      Harbour Bindings for Qt
+   $SUBCATEGORY$
+      GUI
+   $EXTERNALLINK$
+      http://doc.qt.io/qt-4.5/qscriptcontext.html
+   $ONELINER$
+      Creates a new QScriptContext object.
+   $INHERITS$
+
+   $SYNTAX$
+      QScriptContext( ... )
+
+   $ARGUMENTS$
+
+   $RETURNS$
+      An instance of the object of type QScriptContext
+   $METHODS$
+      :activationObject()                                 -> oQScriptValue
+      :argument( nIndex )                                 -> oQScriptValue
+      :argumentCount()                                    -> nInt
+      :argumentsObject()                                  -> oQScriptValue
+      :backtrace()                                        -> oQStringList
+      :callee()                                           -> oQScriptValue
+      :engine()                                           -> oQScriptEngine
+      :isCalledAsConstructor()                            -> lBool
+      :parentContext()                                    -> oQScriptContext
+      :setActivationObject( oQScriptValue )               -> NIL
+      :setThisObject( oQScriptValue )                     -> NIL
+      :state()                                            -> nExecutionState
+      :thisObject()                                       -> oQScriptValue
+      :throwError( nError, cText )                        -> oQScriptValue
+      :( cText )                                          -> oQScriptValue
+      :throwValue( oQScriptValue )                        -> oQScriptValue
+      :toString()                                         -> cQString
+
+   $DESCRIPTION$
+
+   $EXAMPLES$
+
+   $TESTS$
+
+   $STATUS$
+      R
+   $COMPLIANCE$
+      Not Clipper compatible
+   $PLATFORMS$
+      Windows, Linux, Mac OS X, OS/2
+   $VERSION$
+      4.5 or upper
+   $FILES$
+      Library: hbqtsvg
+   $END$
+ */

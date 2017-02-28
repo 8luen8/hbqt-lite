@@ -1,0 +1,15 @@
+#
+# $Id: hbqtlocation.hbp 412 2015-06-30 20:59:14Z bedipritpal $
+#
+
+-cflag=-I${HB_WITH_QT}/QtCore
+-cflag=-I${HB_WITH_QT}/QtPositioning
+
+../hbqt_common.hbm
+
+hbqtlocation.hbm
+
+-instfile=inc:hbqtlocation.ch
+-instfile=inc:hbqtlocation.hbx
+
+hbqtlocations.hbp

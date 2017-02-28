@@ -1,0 +1,41 @@
+#
+# $Id: hbqt.hbp 417 2015-08-01 01:42:17Z bedipritpal $
+#
+
+#
+#    Qt Modules ( mandatory )
+#
+qtcore/hbqtcore.hbp
+qtgui/hbqtgui.hbp
+qtnetwork/hbqtnetwork.hbp
+
+#
+#    qt 5.0+ ( Optional )
+#
+qtlocation/hbqtlocation.hbp
+qtmultimedia/hbqtmultimedia.hbp
+qtmultimediawidgets/hbqtmultimediawidgets.hbp
+qtopengl/hbqtopengl.hbp
+qtscript/hbqtscript.hbp
+qtsql/hbqtsql.hbp
+qtsvg/hbqtsvg.hbp
+qtxml/hbqtxml.hbp
+qtpositioning/hbqtpositioning.hbp
+qtwebsockets/hbqtwebsockets.hbp
+qtbluetooth/hbqtbluetooth.hbp
+qtqml/hbqtqml.hbp
+qtquick/hbqtquick.hbp
+qtsensors/hbqtsensors.hbp
+qzxing/hbqtzxing.hbp
+
+#
+#    qt 5.0 to qt 5.5.1 ( Optional )
+#
+#qtdeclarative/hbqtdeclarative.hbp
+#qtwebkit/hbqtwebkit.hbp
+#qtdesigner/hbqtdesigner.hbp
+
+#
+#    qt 5.7+
+#
+#qtcharts/hbqtcharts.hbp

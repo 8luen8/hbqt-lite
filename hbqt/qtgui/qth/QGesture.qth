@@ -1,0 +1,131 @@
+/*
+ * $Id: QGesture.qth 382 2014-11-25 00:12:31Z bedipritpal $
+ */
+
+/*
+ * Harbour Qt wrapper generator control file
+ *
+ * Copyright 2012 Pritpal Bedi <bedipritpal@hotmail.com>
+ * www - http://www.harbour-project.org
+ *
+ * See COPYING for licensing terms.
+ */
+
+<CLASS>
+QObject     = yes
+Inherit     = QObject
+Type        =
+New         =
+Version     = 0x040600
+</CLASS>
+
+<CODE>
+#include <QtGui/QGesture>
+#include <QtGui/QTapAndHoldGesture>
+#include <QtGui/QPanGesture>
+#include <QtGui/QTapGesture>
+#include <QtGui/QSwipeGesture>
+#include <QtGui/QPinchGesture>
+
+HB_FUNC_EXTERN( HB_QTAPANDHOLDGESTURE );
+HB_FUNC_EXTERN( HB_QPANGESTURE );
+HB_FUNC_EXTERN( HB_QTAPGESTURE );
+HB_FUNC_EXTERN( HB_QSWIPEGESTURE );
+HB_FUNC_EXTERN( HB_QPINCHGESTURE );
+
+
+/*
+ * QGesture ( QObject * parent = 0 )
+ * ~QGesture ()
+ */
+HB_FUNC( QT_QGESTURE )
+{
+   if( hb_pcount() == 1 && hbqt_par_isDerivedFrom( 1, "QOBJECT" ) )
+   {
+      __HB_RETPTRGC__( new QGesture( hbqt_par_QObject( 1 ) ) );
+   }
+   else
+   {
+      __HB_RETPTRGC__( new QGesture() );
+   }
+}
+</CODE>
+
+<ENUMS>
+enum GestureCancelPolicy { CancelNone, CancelAllInContext }
+</ENUMS>
+
+<PROTOS>
+GestureCancelPolicy gestureCancelPolicy () const
+Qt::GestureType gestureType () const
+bool hasHotSpot () const
+QPointF hotSpot () const
+void setGestureCancelPolicy ( GestureCancelPolicy policy )
+void setHotSpot ( const QPointF & value )
+Qt::GestureState state () const
+void unsetHotSpot ()
+
+
+QTapAndHoldGesture * __toTapAndHoldGesture(){
+   QGesture * p = ( QGesture * ) hbqt_par_ptr( 0 );
+   if( p )
+   {
+      PHB_ITEM pGesture = hbqt_bindGetHbObject( NULL, new QTapAndHoldGesture(), "HB_QTAPANDHOLDGESTURE", NULL, HBQT_BIT_NONE );
+      hbqt_bindSwapQtObject( pGesture, hb_param( 0, HB_IT_OBJECT ) );
+      hb_itemReturnRelease( pGesture );
+   }
+}
+QPanGesture * __toPanGesture(){
+   QGesture * p = ( QGesture * ) hbqt_par_ptr( 0 );
+   if( p )
+   {
+      PHB_ITEM pGesture = hbqt_bindGetHbObject( NULL, new QPanGesture(), "HB_QPANGESTURE", NULL, HBQT_BIT_NONE );
+      hbqt_bindSwapQtObject( pGesture, hb_param( 0, HB_IT_OBJECT ) );
+      hb_itemReturnRelease( pGesture );
+   }
+}
+QTapGesture * __toTapGesture(){
+   QGesture * p = ( QGesture * ) hbqt_par_ptr( 0 );
+   if( p )
+   {
+      PHB_ITEM pGesture = hbqt_bindGetHbObject( NULL, new QTapGesture(), "HB_QTAPGESTURE", NULL, HBQT_BIT_NONE );
+      hbqt_bindSwapQtObject( pGesture, hb_param( 0, HB_IT_OBJECT ) );
+      hb_itemReturnRelease( pGesture );
+   }
+}
+QSwipeGesture * __toSwipeGesture(){
+   QGesture * p = ( QGesture * ) hbqt_par_ptr( 0 );
+   if( p )
+   {
+      PHB_ITEM pGesture = hbqt_bindGetHbObject( NULL, new QSwipeGesture(), "HB_QSWIPEGESTURE", NULL, HBQT_BIT_NONE );
+      hbqt_bindSwapQtObject( pGesture, hb_param( 0, HB_IT_OBJECT ) );
+      hb_itemReturnRelease( pGesture );
+   }
+}
+QPinchGesture * __toPinchGesture(){
+   QGesture * p = ( QGesture * ) hbqt_par_ptr( 0 );
+   if( p )
+   {
+      PHB_ITEM pGesture = hbqt_bindGetHbObject( NULL, new QPinchGesture(), "HB_QPINCHGESTURE", NULL, HBQT_BIT_NONE );
+      hbqt_bindSwapQtObject( pGesture, hb_param( 0, HB_IT_OBJECT ) );
+      hb_itemReturnRelease( pGesture );
+   }
+}
+void __justForceLink(){
+   HB_FUNC_EXEC( HB_QTAPANDHOLDGESTURE );
+   HB_FUNC_EXEC( HB_QPANGESTURE );
+   HB_FUNC_EXEC( HB_QTAPGESTURE );
+   HB_FUNC_EXEC( HB_QSWIPEGESTURE );
+   HB_FUNC_EXEC( HB_QPINCHGESTURE );
+}
+</PROTOS>
+
+<SLOTS>
+</SLOTS>
+
+<SIGNALS>
+</SIGNALS>
+
+<VARIABLES>
+</VARIABLES>
+

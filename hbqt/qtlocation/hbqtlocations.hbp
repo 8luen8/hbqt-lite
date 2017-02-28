@@ -1,0 +1,7 @@
+#
+# $Id: hbqtlocations.hbp 412 2015-06-30 20:59:14Z bedipritpal $
+#
+
+../hbqt_commons.hbm
+
+hbqtlocation.hbm

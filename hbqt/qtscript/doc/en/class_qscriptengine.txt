@@ -1,0 +1,87 @@
+
+/* $DOC$
+   $TEMPLATE$
+      Class
+   $NAME$
+      QScriptEngine()
+   $CATEGORY$
+      Harbour Bindings for Qt
+   $SUBCATEGORY$
+      GUI
+   $EXTERNALLINK$
+      http://doc.qt.io/qt-4.5/qscriptengine.html
+   $ONELINER$
+      Creates a new QScriptEngine object.
+   $INHERITS$
+      QObject
+   $SYNTAX$
+      QScriptEngine( ... )
+
+   $ARGUMENTS$
+
+   $RETURNS$
+      An instance of the object of type QScriptEngine
+   $METHODS$
+      :abortEvaluation( oQScriptValue )                   -> NIL
+      :agent()                                            -> oQScriptEngineAgent
+      :availableExtensions()                              -> oQStringList
+      :clearExceptions()                                  -> NIL
+      :collectGarbage()                                   -> NIL
+      :currentContext()                                   -> oQScriptContext
+      :defaultPrototype( nMetaTypeId )                    -> oQScriptValue
+      :evaluate( cProgram, cFileName, nLineNumber )       -> oQScriptValue
+      :( oQScriptProgram )                                -> oQScriptValue
+      :globalObject()                                     -> oQScriptValue
+      :hasUncaughtException()                             -> lBool
+      :importExtension( cExtension )                      -> oQScriptValue
+      :importedExtensions()                               -> oQStringList
+      :installTranslatorFunctions( oQScriptValue )        -> NIL
+      :isEvaluating()                                     -> lBool
+      :newArray( nLength )                                -> oQScriptValue
+      :newDate( nValue )                                  -> oQScriptValue
+      :( oQDateTime )                                     -> oQScriptValue
+      :newObject()                                        -> oQScriptValue
+      :( oQScriptClass, oQScriptValue )                   -> oQScriptValue
+      :newQMetaObject( oQMetaObject, oQScriptValue )      -> oQScriptValue
+      :newQObject( oQObject, nOwnership, nOptions )       -> oQScriptValue
+      :( oQScriptValue, oQObject, nOwnership, nOptions )  -> oQScriptValue
+      :newRegExp( oQRegExp )                              -> oQScriptValue
+      :( cPattern, cFlags )                               -> oQScriptValue
+      :newVariant( oQVariant )                            -> oQScriptValue
+      :( oQScriptValue, oQVariant )                       -> oQScriptValue
+      :nullValue()                                        -> oQScriptValue
+      :popContext()                                       -> NIL
+      :processEventsInterval()                            -> nInt
+      :pushContext()                                      -> oQScriptContext
+      :reportAdditionalMemoryCost( nSize )                -> NIL
+      :setAgent( oQScriptEngineAgent )                    -> NIL
+      :setDefaultPrototype( nMetaTypeId, oQScriptValue )  -> NIL
+      :setGlobalObject( oQScriptValue )                   -> NIL
+      :setProcessEventsInterval( nInterval )              -> NIL
+      :toObject( oQScriptValue )                          -> oQScriptValue
+      :toScriptValue( xValue )                            -> oQScriptValue
+      :toStringHandle( cStr )                             -> oQScriptString
+      :uncaughtException()                                -> oQScriptValue
+      :uncaughtExceptionBacktrace()                       -> oQStringList
+      :uncaughtExceptionLineNumber()                      -> nInt
+      :undefinedValue()                                   -> oQScriptValue
+      :checkSyntax( cProgram )                            -> oQScriptSyntaxCheckResult
+
+   $DESCRIPTION$
+
+   $EXAMPLES$
+
+   $TESTS$
+
+   $STATUS$
+      R
+   $COMPLIANCE$
+      Not Clipper compatible
+   $PLATFORMS$
+      Windows, Linux, Mac OS X, OS/2
+   $VERSION$
+      4.5 or upper
+   $FILES$
+      Library: hbqtsvg
+   $END$
+ */

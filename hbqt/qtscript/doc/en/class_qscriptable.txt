@@ -1,0 +1,48 @@
+
+/* $DOC$
+   $TEMPLATE$
+      Class
+   $NAME$
+      QScriptable()
+   $CATEGORY$
+      Harbour Bindings for Qt
+   $SUBCATEGORY$
+      GUI
+   $EXTERNALLINK$
+      http://doc.qt.io/qt-4.5/qscriptable.html
+   $ONELINER$
+      Creates a new QScriptable object.
+   $INHERITS$
+
+   $SYNTAX$
+      QScriptable( ... )
+
+   $ARGUMENTS$
+
+   $RETURNS$
+      An instance of the object of type QScriptable
+   $METHODS$
+      :argument( nIndex )                                 -> oQScriptValue
+      :argumentCount()                                    -> nInt
+      :context()                                          -> oQScriptContext
+      :engine()                                           -> oQScriptEngine
+      :thisObject()                                       -> oQScriptValue
+
+   $DESCRIPTION$
+
+   $EXAMPLES$
+
+   $TESTS$
+
+   $STATUS$
+      R
+   $COMPLIANCE$
+      Not Clipper compatible
+   $PLATFORMS$
+      Windows, Linux, Mac OS X, OS/2
+   $VERSION$
+      4.5 or upper
+   $FILES$
+      Library: hbqtsvg
+   $END$
+ */

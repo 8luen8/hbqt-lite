@@ -1,0 +1,53 @@
+
+/* $DOC$
+   $TEMPLATE$
+      Class
+   $NAME$
+      QScriptContextInfo()
+   $CATEGORY$
+      Harbour Bindings for Qt
+   $SUBCATEGORY$
+      GUI
+   $EXTERNALLINK$
+      http://doc.qt.io/qt-4.5/qscriptcontextinfo.html
+   $ONELINER$
+      Creates a new QScriptContextInfo object.
+   $INHERITS$
+
+   $SYNTAX$
+      QScriptContextInfo( ... )
+
+   $ARGUMENTS$
+
+   $RETURNS$
+      An instance of the object of type QScriptContextInfo
+   $METHODS$
+      :fileName()                                         -> cQString
+      :functionEndLineNumber()                            -> nInt
+      :functionMetaIndex()                                -> nInt
+      :functionName()                                     -> cQString
+      :functionParameterNames()                           -> oQStringList
+      :functionStartLineNumber()                          -> nInt
+      :functionType()                                     -> nFunctionType
+      :isNull()                                           -> lBool
+      :lineNumber()                                       -> nInt
+      :scriptId()                                         -> nQint64
+
+   $DESCRIPTION$
+
+   $EXAMPLES$
+
+   $TESTS$
+
+   $STATUS$
+      R
+   $COMPLIANCE$
+      Not Clipper compatible
+   $PLATFORMS$
+      Windows, Linux, Mac OS X, OS/2
+   $VERSION$
+      4.5 or upper
+   $FILES$
+      Library: hbqtsvg
+   $END$
+ */

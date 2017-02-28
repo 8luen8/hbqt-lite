@@ -1,0 +1,13 @@
+#
+# $Id: hbqtlocation.hbm 412 2015-06-30 20:59:14Z bedipritpal $
+#
+
+-i.
+
+qth/filelist.hbm
+
+hbqtlocation.hbx
+
+hbqt_init.cpp
+
+../qtcore/hbqtcore.hbc

@@ -1,0 +1,16 @@
+#
+# $Id: hbqtcharts.hbm 428 2016-10-20 01:05:49Z bedipritpal $
+#
+
+-i.
+
+qth/filelist.hbm
+
+hbqtcharts.hbx
+
+hbqt_init.cpp
+
+../qtcore/hbqtcore.hbc
+../qtgui/hbqtgui.hbc
+
+

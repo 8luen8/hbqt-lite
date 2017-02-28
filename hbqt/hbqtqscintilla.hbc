@@ -1,0 +1,11 @@
+#
+# $Id: hbqtqscintilla.hbc 400 2015-02-02 08:27:21Z bedipritpal $
+#
+
+# ---------------------------------------------------------------
+# Copyright 2010 Viktor Szakats (harbour syenar.net)
+# See COPYING for licensing terms.
+# ---------------------------------------------------------------
+
+libs=qscintilla/hbqscintilla.hbc
+

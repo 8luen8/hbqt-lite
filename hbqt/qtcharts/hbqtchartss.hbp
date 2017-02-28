@@ -1,0 +1,7 @@
+#
+# $Id: hbqtchartss.hbp 428 2016-10-20 01:05:49Z bedipritpal $
+#
+
+../hbqt_commons.hbm
+
+hbqtcharts.hbm

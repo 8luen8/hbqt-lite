@@ -1,0 +1,16 @@
+#
+# $Id: hbqtdbus.hbm 435 2016-11-16 16:36:11Z bedipritpal $
+#
+
+-i.
+
+qth/filelist.hbm
+
+hbqtdbus.hbx
+
+hbqt_init.cpp
+
+
+../qtcore/hbqtcore.hbc
+
+

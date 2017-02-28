@@ -1,0 +1,13 @@
+#
+# $Id: hbqtdesigner.hbp 392 2015-01-23 21:14:12Z bedipritpal $
+#
+
+{android|__ios__}-stop='QtDesigner is not available for Android/ios...'
+
+../hbqt_common.hbm
+
+hbqtdesigner.hbm
+
+-instfile=inc:hbqtdesigner.hbx
+
+hbqtdesigners.hbp

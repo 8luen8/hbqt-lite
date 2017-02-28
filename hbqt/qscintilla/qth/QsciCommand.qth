@@ -1,0 +1,50 @@
+/*
+ * $Id: QsciCommand.qth 400 2015-02-02 08:27:21Z bedipritpal $
+ */
+
+/*
+ * Harbour Qt wrapper generator control file
+ *
+ * Copyright 2009-2010 Pritpal Bedi <bedipritpal@hotmail.com>
+ * www - http://www.harbour-project.org
+ *
+ * See COPYING for licensing terms.
+ */
+
+<CLASS>
+QObject  = no
+Inherits =
+</CLASS>
+
+<CODE>
+#include <qsci/qscicommand.h>
+#include <QtCore/QStringList>
+
+
+/*
+ *
+ *
+ */
+HB_FUNC( QT_QSCICOMMAND )
+{
+
+}
+</CODE>
+
+<ENUMS>
+</ENUMS>
+
+<PROTOS>
+void setKey (int key)
+void setAlternateKey (int altkey)
+int key () const
+int alternateKey () const
+QString description () const
+bool validKey (int key)
+</PROTOS>
+
+<SLOTS>
+</SLOTS>
+
+<SIGNALS>
+</SIGNALS>

@@ -1,0 +1,11 @@
+#
+# $Id: filelist.hbm 414 2015-07-30 23:52:01Z bedipritpal $
+#
+
+-pflag=-qtver=0x050300
+-pflag=-qtmodule=QZXing
+-pflag=-qthdocdir=../doc/
+
+QZXing.qth
+HBQAbstractVideoSurface.qth
+

@@ -1,0 +1,55 @@
+
+/* $DOC$
+   $TEMPLATE$
+      Class
+   $NAME$
+      QScriptValueIterator()
+   $CATEGORY$
+      Harbour Bindings for Qt
+   $SUBCATEGORY$
+      GUI
+   $EXTERNALLINK$
+      http://doc.qt.io/qt-4.5/qscriptvalueiterator.html
+   $ONELINER$
+      Creates a new QScriptValueIterator object.
+   $INHERITS$
+
+   $SYNTAX$
+      QScriptValueIterator( ... )
+
+   $ARGUMENTS$
+
+   $RETURNS$
+      An instance of the object of type QScriptValueIterator
+   $METHODS$
+      :flags()                                            -> nQScriptValue_PropertyFlags
+      :hasNext()                                          -> lBool
+      :hasPrevious()                                      -> lBool
+      :name()                                             -> cQString
+      :next()                                             -> NIL
+      :previous()                                         -> NIL
+      :remove()                                           -> NIL
+      :scriptName()                                       -> oQScriptString
+      :setValue( oQScriptValue )                          -> NIL
+      :toBack()                                           -> NIL
+      :toFront()                                          -> NIL
+      :value()                                            -> oQScriptValue
+
+   $DESCRIPTION$
+
+   $EXAMPLES$
+
+   $TESTS$
+
+   $STATUS$
+      R
+   $COMPLIANCE$
+      Not Clipper compatible
+   $PLATFORMS$
+      Windows, Linux, Mac OS X, OS/2
+   $VERSION$
+      4.5 or upper
+   $FILES$
+      Library: hbqtsvg
+   $END$
+ */

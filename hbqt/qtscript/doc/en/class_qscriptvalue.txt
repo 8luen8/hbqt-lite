@@ -1,0 +1,91 @@
+
+/* $DOC$
+   $TEMPLATE$
+      Class
+   $NAME$
+      QScriptValue()
+   $CATEGORY$
+      Harbour Bindings for Qt
+   $SUBCATEGORY$
+      GUI
+   $EXTERNALLINK$
+      http://doc.qt.io/qt-4.5/qscriptvalue.html
+   $ONELINER$
+      Creates a new QScriptValue object.
+   $INHERITS$
+
+   $SYNTAX$
+      QScriptValue( ... )
+
+   $ARGUMENTS$
+
+   $RETURNS$
+      An instance of the object of type QScriptValue
+   $METHODS$
+      :call( oQScriptValue, oQScriptValueList )           -> oQScriptValue
+      :( oQScriptValue, oQScriptValue )                   -> oQScriptValue
+      :construct( oQScriptValueList )                     -> oQScriptValue
+      :( oQScriptValue )                                  -> oQScriptValue
+      :data()                                             -> oQScriptValue
+      :engine()                                           -> oQScriptEngine
+      :equals( oQScriptValue )                            -> lBool
+      :instanceOf( oQScriptValue )                        -> lBool
+      :isArray()                                          -> lBool
+      :isBool()                                           -> lBool
+      :isDate()                                           -> lBool
+      :isError()                                          -> lBool
+      :isFunction()                                       -> lBool
+      :isNull()                                           -> lBool
+      :isNumber()                                         -> lBool
+      :isObject()                                         -> lBool
+      :isQMetaObject()                                    -> lBool
+      :isQObject()                                        -> lBool
+      :isRegExp()                                         -> lBool
+      :isString()                                         -> lBool
+      :isUndefined()                                      -> lBool
+      :isValid()                                          -> lBool
+      :isVariant()                                        -> lBool
+      :lessThan( oQScriptValue )                          -> lBool
+      :property( cName, nMode )                           -> oQScriptValue
+      :( oQScriptString, nMode )                          -> oQScriptValue
+      :( nArrayIndex, nMode )                             -> oQScriptValue
+      :propertyFlags( cName, nMode )                      -> nQScriptValue_PropertyFlags
+      :( oQScriptString, nMode )                          -> nQScriptValue_PropertyFlags
+      :prototype()                                        -> oQScriptValue
+      :scriptClass()                                      -> oQScriptClass
+      :setData( oQScriptValue )                           -> NIL
+      :setProperty( cName, oQScriptValue, nFlags )        -> NIL
+      :( oQScriptString, oQScriptValue, nFlags )          -> NIL
+      :( nArrayIndex, oQScriptValue, nFlags )             -> NIL
+      :setPrototype( oQScriptValue )                      -> NIL
+      :setScriptClass( oQScriptClass )                    -> NIL
+      :strictlyEquals( oQScriptValue )                    -> lBool
+      :toBool()                                           -> lBool
+      :toDateTime()                                       -> oQDateTime
+      :toInt32()                                          -> nQint32
+      :toQMetaObject()                                    -> oQMetaObject
+      :toQObject()                                        -> oQObject
+      :toRegExp()                                         -> oQRegExp
+      :toString()                                         -> cQString
+      :toUInt16()                                         -> nQuint16
+      :toUInt32()                                         -> nQuint32
+      :toVariant()                                        -> oQVariant
+
+   $DESCRIPTION$
+
+   $EXAMPLES$
+
+   $TESTS$
+
+   $STATUS$
+      R
+   $COMPLIANCE$
+      Not Clipper compatible
+   $PLATFORMS$
+      Windows, Linux, Mac OS X, OS/2
+   $VERSION$
+      4.5 or upper
+   $FILES$
+      Library: hbqtsvg
+   $END$
+ */

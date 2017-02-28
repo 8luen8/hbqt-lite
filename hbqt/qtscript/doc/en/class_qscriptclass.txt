@@ -1,0 +1,53 @@
+
+/* $DOC$
+   $TEMPLATE$
+      Class
+   $NAME$
+      QScriptClass()
+   $CATEGORY$
+      Harbour Bindings for Qt
+   $SUBCATEGORY$
+      GUI
+   $EXTERNALLINK$
+      http://doc.qt.io/qt-4.5/qscriptclass.html
+   $ONELINER$
+      Creates a new QScriptClass object.
+   $INHERITS$
+
+   $SYNTAX$
+      QScriptClass( ... )
+
+   $ARGUMENTS$
+
+   $RETURNS$
+      An instance of the object of type QScriptClass
+   $METHODS$
+      :engine()                                           -> oQScriptEngine
+      :extension( nExtension, oQVariant )                 -> oQVariant
+      :name()                                             -> cQString
+      :newIterator( oQScriptValue )                       -> oQScriptClassPropertyIterator
+      :property( oQScriptValue, oQScriptString, nId )     -> oQScriptValue
+      :propertyFlags( oQScriptValue, oQScriptString, nId )  -> nQScriptValue_PropertyFlags
+      :prototype()                                        -> oQScriptValue
+      :queryProperty( oQScriptValue, oQScriptString, nFlags, @nId )  -> nQueryFlags
+      :setProperty( oQScriptValue, oQScriptString, nId, oQScriptValue )  -> NIL
+      :supportsExtension( nExtension )                    -> lBool
+
+   $DESCRIPTION$
+
+   $EXAMPLES$
+
+   $TESTS$
+
+   $STATUS$
+      R
+   $COMPLIANCE$
+      Not Clipper compatible
+   $PLATFORMS$
+      Windows, Linux, Mac OS X, OS/2
+   $VERSION$
+      4.5 or upper
+   $FILES$
+      Library: hbqtsvg
+   $END$
+ */

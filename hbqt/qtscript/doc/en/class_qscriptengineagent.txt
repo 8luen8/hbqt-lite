@@ -1,0 +1,55 @@
+
+/* $DOC$
+   $TEMPLATE$
+      Class
+   $NAME$
+      QScriptEngineAgent()
+   $CATEGORY$
+      Harbour Bindings for Qt
+   $SUBCATEGORY$
+      GUI
+   $EXTERNALLINK$
+      http://doc.qt.io/qt-4.5/qscriptengineagent.html
+   $ONELINER$
+      Creates a new QScriptEngineAgent object.
+   $INHERITS$
+
+   $SYNTAX$
+      QScriptEngineAgent( ... )
+
+   $ARGUMENTS$
+
+   $RETURNS$
+      An instance of the object of type QScriptEngineAgent
+   $METHODS$
+      :contextPop()                                       -> NIL
+      :contextPush()                                      -> NIL
+      :engine()                                           -> oQScriptEngine
+      :exceptionCatch( nScriptId, oQScriptValue )         -> NIL
+      :exceptionThrow( nScriptId, oQScriptValue, lHasHandler )  -> NIL
+      :extension( nExtension, oQVariant )                 -> oQVariant
+      :functionEntry( nScriptId )                         -> NIL
+      :functionExit( nScriptId, oQScriptValue )           -> NIL
+      :positionChange( nScriptId, nLineNumber, nColumnNumber )  -> NIL
+      :scriptLoad( nId, cProgram, cFileName, nBaseLineNumber )  -> NIL
+      :scriptUnload( nId )                                -> NIL
+      :supportsExtension( nExtension )                    -> lBool
+
+   $DESCRIPTION$
+
+   $EXAMPLES$
+
+   $TESTS$
+
+   $STATUS$
+      R
+   $COMPLIANCE$
+      Not Clipper compatible
+   $PLATFORMS$
+      Windows, Linux, Mac OS X, OS/2
+   $VERSION$
+      4.5 or upper
+   $FILES$
+      Library: hbqtsvg
+   $END$
+ */
