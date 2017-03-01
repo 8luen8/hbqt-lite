@@ -20,11 +20,14 @@ PROCEDURE Main ()
    LOCAL oApp
    LOCAL oWindow
 
+   REQUEST HB_CODEPAGE_UTF8
+   REQUEST HB_CODEPAGE_UTF8EX
+
+   SET( _SET_CODEPAGE, "UTF8EX" )
+   hb_cdpSelect( "UTF8EX" )
+
    /* hbqt_errorsys() */
    hbqt_errorsys()
-
-   /* hb_gtsys() */
-   hb_gtsys()
 
    oApp := QApplication():new()
 
@@ -382,44 +385,3 @@ METHOD QT_FMain:showMessage(cText)
    oMB:exec()
 
 RETURN NIL
-
-// *---------------------------------------------------------------------------*
-// hb_gtsys()
-// *---------------------------------------------------------------------------*
-PROCEDURE hb_gtsys()
-
-   REQUEST DBFCDX
-
-   REQUEST HB_LANG_PT
-   REQUEST HB_CODEPAGE_UTF8
-   REQUEST HB_CODEPAGE_UTF8EX
-
-   /* SET AMBIENT */
-   SET AUTOPEN ON
-   SET AUTORDER TO 1
-   SET BELL OFF
-   SET CENTURY ON
-   SET CONFIRM ON
-   SET DELETED ON
-   SET ECHO OFF
-   SET ESCAPE ON
-   SET EPOCH TO Year( Date() ) - 50
-   SET INTENSITY ON
-   SET SAFETY OFF
-   SET SCOREBOARD OFF
-   SET SOFTSEEK OFF
-   SET STATUS OFF
-   SET TALK OFF
-   SET TYPEAHEAD TO 16
-   SET WRAP ON
-
-   /* RDD */
-   RDDSETDEFAULT('DBFCDX')
-   DBSETDRIVER('DBFCDX')
-
-   SET( _SET_CODEPAGE, "UTF8EX" )
-
-   hb_langSelect( 'pt' )
-   hb_cdpSelect( "UTF8EX" )
-
-   RETURN

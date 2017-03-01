@@ -3,9 +3,6 @@
 # Required to run any bhqt binary
 #
 
-platforms\qminimal.dll
-platforms\qwindows.dll
-printsupport\windowsprintersupport.dll
 Qt5Sql.dll
 Qt5PrintSupport.dll
 Qt5Widgets.dll

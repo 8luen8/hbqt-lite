@@ -64,7 +64,7 @@ STATIC FUNCTION Print_Preview( oWindow )
    WITH OBJECT oPrintPreview := QPrintPreviewDialog( oPrinter, oWindow )
       :setwindowicon( QIcon( "..\..\images\Tool_Print_32.png" ) )
       :resize(800,520)
-      :connect( "paintRequested(QPrinter*)", { |oPrn| report_Pain_Request( oPrn ) } )
+      :connect( "paintRequested(QPrinter*)", { |oPrn| report_Paint_Request( oPrn ) } )
       :setAttribute( Qt_WA_DeleteOnClose, .T. )
    END WITH
 
@@ -72,7 +72,7 @@ STATIC FUNCTION Print_Preview( oWindow )
 
 RETURN NIL
 
-STATIC FUNCTION report_Pain_Request( oPrinter )
+STATIC FUNCTION report_Paint_Request( oPrinter )
 
    LOCAL i
    LOCAL oPainter
