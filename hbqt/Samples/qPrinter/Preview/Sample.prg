@@ -32,7 +32,7 @@ PROCEDURE Main ()
 
    WITH OBJECT oWindow := QMainWindow():new()
       :setWindowTitle("hbqt: Print Preview")
-      :resize(800,600)
+      :resize( 1024, 768 )
    END WITH
 
    WITH OBJECT oButton := QPushButton():new( "Print Preview", oWindow )
@@ -63,7 +63,7 @@ STATIC FUNCTION Print_Preview( oWindow )
 
    WITH OBJECT oPrintPreview := QPrintPreviewDialog( oPrinter, oWindow )
       :setwindowicon( QIcon( "..\..\images\Tool_Print_32.png" ) )
-      :resize(800,520)
+      :resize(940,720)
       :connect( "paintRequested(QPrinter*)", { |oPrn| report_Paint_Request( oPrn ) } )
       :setAttribute( Qt_WA_DeleteOnClose, .T. )
    END WITH

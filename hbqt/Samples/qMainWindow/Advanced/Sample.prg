@@ -57,14 +57,16 @@ CREATE CLASS qt_FMain INHERIT hb_QMainWindow
 
    PROTECTED:
 
-   METHOD Actions_Create()
-   METHOD Menu_Create()
-   METHOD Menu_update()
+   METHOD Actions_create()
+   METHOD Actions_update()
+   METHOD Menu_create()
+   METHOD PopUpMenu_create()
+   METHOD StatusBar_create()
+   METHOD StatusBar_update()
+   METHOD ToolBar_create()
+
    METHOD setProperties()
    METHOD showMessage(cText)
-   METHOD StatusBar_Update()
-   METHOD StatusBar_Create()
-   METHOD ToolBar_Create()
 
    METHOD __onExit( oEvent )
 
@@ -82,26 +84,29 @@ METHOD Init(...) CLASS qt_FMain
    ::setProperties()
 
    /* hActions */
-   ::Actions_Create()
+   ::Actions_create()
 
    /* oMainMenu */
-   ::Menu_Create()
+   ::Menu_create()
 
    /* ::hObjects['TBarActions'] */
-   ::ToolBar_Create()
+   ::ToolBar_create()
+
+   /* PopUpMenu_create */
+   ::PopUpMenu_create()
 
    /* ::hObjects['StatusBar'] */
-   ::StatusBar_Create()
+   ::StatusBar_create()
 
    /* QEvent_ContextMenu */
-   ::connect( QEvent_ContextMenu,    { |qEvent| ::hObjects['ContextMenu']:exec( qEvent:globalPos() ) } )
+   ::connect( QEvent_ContextMenu,    { |qEvent| ::hObjects['PopUpMenu']:exec( qEvent:globalPos() ) } )
 
    /* QEvent_Close */
    ::connect( QEvent_Close,          { |oEvent| ::__onExit( oEvent ) } )
 
    /* ::hObjects['Timer'] */
    WITH OBJECT ::hObjects['Timer'] := QTimer()
-      :connect( "timeout()", { || ::StatusBar_Update() } )
+      :connect( "timeout()", { || ::StatusBar_update() } )
       :start( 1500 )
    END WITH
 
@@ -127,9 +132,9 @@ METHOD QT_FMain:setProperties()
    RETURN( Self )
 
 // *---------------------------------------------------------------------------*
-// QT_FMain:Actions_Create()
+// QT_FMain:Actions_create()
 // *---------------------------------------------------------------------------*
-METHOD QT_FMain:Actions_Create()
+METHOD QT_FMain:Actions_create()
 
    WITH OBJECT ::hActions[ "File_New" ] := QAction( ::tr( "New" ), Self )
       :setIcon( QIcon( "..\..\images\new.png" ) )
@@ -149,7 +154,7 @@ METHOD QT_FMain:Actions_Create()
       :connect( "triggered()", { || ::showMessage( "File/Save" ) } )
    END WITH
 
-   WITH OBJECT ::hActions[ "File_Exit" ] := QAction( ::tr( "Close" ) + CHR( 27 ) + "Alt+F4", Self )
+   WITH OBJECT ::hActions[ "File_Exit" ] := QAction( ::tr( "Close" ) + CHR( 9 ) + "Alt+F4", Self )
       :setIcon( QIcon( '..\..\images\tool_ExitApp_32.png' ) )
       :setTooltip( ::tr( "File/Close" ) )
       :connect( "triggered()", { || ::close() } )
@@ -175,7 +180,7 @@ METHOD QT_FMain:Actions_Create()
 
    WITH OBJECT ::hActions[ "Help_Sample" ] := QAction( ::tr( "Sample" ), Self )
       :setTooltip( ::tr( "Help/Sample" ) )
-      :connect( "triggered()", { || ::showMessage( "Sample for qtMainWindow" ) } )
+      :connect( "triggered()", { || ::showMessage( "Sample for QtMainWindow" ) } )
    END WITH
 
    WITH OBJECT ::hActions[ "Help_Harbour" ] := QAction( ::tr( "Harbour" ), Self )
@@ -196,9 +201,9 @@ METHOD QT_FMain:Actions_Create()
    RETURN( Self )
 
 // *---------------------------------------------------------------------------*
-// QT_FMain:Menu_Create()
+// QT_FMain:Menu_create()
 // *---------------------------------------------------------------------------*
-METHOD QT_FMain:Menu_Create()
+METHOD QT_FMain:Menu_create()
 
    /* oMainMenu */
    ::oMainMenu := ::menuBar()
@@ -237,9 +242,9 @@ METHOD QT_FMain:Menu_Create()
    RETURN( Self )
 
 // *---------------------------------------------------------------------------*
-// QT_FMain:ToolBar_Create()
+// QT_FMain:ToolBar_create()
 // *---------------------------------------------------------------------------*
-METHOD QT_FMain:ToolBar_Create()
+METHOD QT_FMain:ToolBar_create()
 
    /* ::hObjects['TBar_File'] */
    WITH OBJECT ::hObjects['TBar_File'] := QToolbar( "Actions Bar", Self )
@@ -281,8 +286,15 @@ METHOD QT_FMain:ToolBar_Create()
    END WITH
    ::addToolBar( Qt_TopToolBarArea, ::hObjects['TBar_Exit'] )
 
-   /* ::hObjects['ContextMenu'] */
-   WITH OBJECT ::hObjects['ContextMenu'] := ::createPopupMenu( Self )
+   RETURN( Self )
+
+// *---------------------------------------------------------------------------*
+// QT_FMain:PopUpMenu_create()           /* Must call after ::ToolBar_create() */
+// *---------------------------------------------------------------------------*
+METHOD QT_FMain:PopUpMenu_create()
+
+   /* ::hObjects['PopUpMenu'] */
+   WITH OBJECT ::hObjects['PopUpMenu'] := ::createPopupMenu( Self )
       :addSeparator()
       :addAction( ::hActions[ "Edit_cut" ] )
       :addAction( ::hActions[ "Edit_copy" ] )
@@ -294,9 +306,9 @@ METHOD QT_FMain:ToolBar_Create()
    RETURN( Self )
 
 // *---------------------------------------------------------------------------*
-// QT_FMain:StatusBar_Create()
+// QT_FMain:StatusBar_create()
 // *---------------------------------------------------------------------------*
-METHOD QT_FMain:StatusBar_Create()
+METHOD QT_FMain:StatusBar_create()
 
    LOCAL oFont
    LOCAL oImage := Array( 4 )
@@ -311,7 +323,7 @@ METHOD QT_FMain:StatusBar_Create()
 
    WITH OBJECT ::hStatusBarItems[ "Message" ] := QLabel( Self )
       :setAlignment( Qt_AlignCenter )
-      :setText( 'Advanced: Sample for qtMainWindow' )
+      :setText( 'Advanced: Sample for QtMainWindow' )
    END WITH
    WITH OBJECT ::hStatusBarItems[ "Caps_Lock" ] := QLabel( Self )
       :setAlignment( Qt_AlignCenter )
@@ -343,15 +355,17 @@ METHOD QT_FMain:StatusBar_Create()
    RETURN( Self )
 
 // *---------------------------------------------------------------------------*
-// QT_FMain:Menu_update()
+// QT_FMain:Actions_update()
 // *---------------------------------------------------------------------------*
-METHOD QT_FMain:Menu_update()
+METHOD QT_FMain:Actions_update()
+   // Code to update menus
    RETURN( Self )
 
 // *---------------------------------------------------------------------------*
-// QT_FMain:StatusBar_Update()
+// QT_FMain:StatusBar_update()
 // *---------------------------------------------------------------------------*
-METHOD QT_FMain:StatusBar_Update()
+METHOD QT_FMain:StatusBar_update()
+   // Code to update StatusBar
    RETURN( Self )
 
 // *---------------------------------------------------------------------------*

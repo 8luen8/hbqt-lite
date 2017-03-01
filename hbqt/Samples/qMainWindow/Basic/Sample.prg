@@ -25,7 +25,7 @@ PROCEDURE Main ()
 
    oWindow := QMainWindow():new()
 
-   oWindow:setWindowTitle("hbqt: QMainWindow")
+   oWindow:setWindowTitle("hbqt: QMainWindow Basic")
 
    oWindow:resize(800,600)
 

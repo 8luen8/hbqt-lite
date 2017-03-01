@@ -18,10 +18,3 @@ libs=hbtip.hbc
 libs=hbwin.hbc
 libs=hbzebra.hbc
 libs=hbmxml.hbc
-
-#
-# .hbc Files - hbQT
-#
-# libs=lhbqtsql.hbc 
-# libs=hbqtwidgets.hbc
-libs=hbqt.hbc

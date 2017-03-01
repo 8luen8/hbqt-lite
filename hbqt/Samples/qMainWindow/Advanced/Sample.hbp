@@ -66,6 +66,8 @@
 # Sample - .hbc File
 #
 Sample.hbc
+hbqt.hbc
+hbqtsql.hbc 
 
 #
 # Harbour Contrib - .hbc Files
