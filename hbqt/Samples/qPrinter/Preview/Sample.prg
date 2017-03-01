@@ -34,7 +34,6 @@ PROCEDURE Main ()
       :setWindowTitle("hbqt: Print Preview")
       :resize(800,600)
    END WITH
-   oWindow:show()
 
    WITH OBJECT oButton := QPushButton():new( "Print Preview", oWindow )
       :resize(250,30)
@@ -42,7 +41,11 @@ PROCEDURE Main ()
       :setIcon( QIcon( "..\..\images\Tool_Print_32.png" ) )
       :connect( "clicked()", { || Print_Preview( oWindow ) } )
    END WITH
-   oButton:show()
+
+   WITH OBJECT oWindow
+      :setCentralWidget( oButton )
+      :show()
+   END WITH
 
    oApp:exec()
 
@@ -50,12 +53,42 @@ RETURN
 
 STATIC FUNCTION Print_Preview( oWindow )
 
-   LOCAL oPrintPreviewDialog
+   LOCAL oPrinter
+   LOCAL oPrintPreview
 
-   WITH OBJECT oPrintPreviewDialog := QPrintPreviewDialog():new( oWindow )
-      :setwindowicon( QIcon( "..\..\images\Tool_Print_32.png" ) )
-      :resize(720,480)
+   WITH OBJECT oPrinter := QPrinter():new(QPrinter_HighResolution)
+      :setPageOrientation( QPrinter_Portrait )
+      :setPageSize( QPageSize( QPrinter_A4 ) )
    END WITH
-   oPrintPreviewDialog:exec()
+
+   WITH OBJECT oPrintPreview := QPrintPreviewDialog( oPrinter, oWindow )
+      :setwindowicon( QIcon( "..\..\images\Tool_Print_32.png" ) )
+      :resize(800,520)
+      :connect( "paintRequested(QPrinter*)", { |oPrn| report_Pain_Request( oPrn ) } )
+      :setAttribute( Qt_WA_DeleteOnClose, .T. )
+   END WITH
+
+   oPrintPreview:exec()
+
+RETURN NIL
+
+STATIC FUNCTION report_Pain_Request( oPrinter )
+
+   LOCAL i
+   LOCAL oPainter
+
+   WITH OBJECT oPainter := QPainter():new()
+      :begin( oPrinter )
+      FOR i := 1 to 4
+         :drawText( 10, 10, "Page " + StrZero( i, 5) )
+         :drawText( INT( ( oPrinter:width() / 2 ) - 48 ), INT( oPrinter:height() / 2 ), "Hello world!" )
+         :drawRect( 99, 99, oPrinter:width()-240, oPrinter:height()-240)
+         :drawEllipse( 99, 99, oPrinter:width()-240, oPrinter:height()-240)
+         IF i < 4
+            oPrinter:newPage()
+         ENDIF
+      NEXT
+   END WITH
+   oPainter:end()
 
 RETURN NIL
