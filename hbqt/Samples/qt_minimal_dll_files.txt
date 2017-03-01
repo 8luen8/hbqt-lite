@@ -1,0 +1,13 @@
+#
+# Basic files you have to copy from folder \Qt\...\bin
+# Required to run any bhqt binary
+#
+
+platforms\qminimal.dll
+platforms\qwindows.dll
+printsupport\windowsprintersupport.dll
+Qt5Sql.dll
+Qt5PrintSupport.dll
+Qt5Widgets.dll
+Qt5Core.dll
+Qt5Gui.dll

@@ -17,7 +17,7 @@
 
 PROCEDURE Main ()
 
-   lOCAL oApp
+   LOCAL oApp
    LOCAL oWindow
 
    /* hbqt_errorsys() */
