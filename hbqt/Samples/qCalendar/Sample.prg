@@ -28,14 +28,14 @@ PROCEDURE Main ()
       :setWindowTitle("hbqt: QCalendarWidget")
       :resize(800,600)
    END WITH
-   oWindow:show()
 
    WITH OBJECT oCal := QCalendarWidget():new(oWindow)
-      :move(20,20)
       :resize(320,240)
       :setTooltip("QCalendarWidget")
    END WITH
-   oCal:show()
+   oCal:move(20,20)
+
+   oWindow:show()
 
    oApp:exec()
 

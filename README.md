@@ -54,9 +54,10 @@ A student of software analysis & concepts
 ## Samples Folder
 
 ### You are invited to send your samples using hbqt classes/objects
-#### qCalendar
-#### qMainWindow
-#### qPrinter
+#### QCalendar
+#### QMainWindow
+#### QPrinter
+#### And more...
 #### It's a work in progress
 
 
