@@ -16,11 +16,12 @@
 PROCEDURE Main ()
 
    LOCAL oApp
-   LOCAL oDB
-   LOCAL oModel
    LOCAL oWindow
-   LOCAL oView
-   LOCAL cDB := "cidades.db"
+   LOCAL oTable
+   LOCAL r
+   LOCAL c
+   LOCAL nCols := 16
+   LOCAL nRows := 16 * 32
 
    REQUEST HB_CODEPAGE_UTF8
    REQUEST HB_CODEPAGE_UTF8EX
@@ -34,32 +35,21 @@ PROCEDURE Main ()
    oApp := QApplication():new()
 
    WITH OBJECT oWindow := QMainWindow():new()
-      :setWindowTitle("hbqt: QTableView ( QSqlDatabase, QSqlQueryModel )")
+      :setWindowTitle("hbqt: QTableWidget")
       :resize(800,600)
    END WITH
 
-   WITH OBJECT oDB := QSqlDatabase():addDatabase( "QSQLITE" )
-      :setHostName("localhost")
-      :setDatabaseName( cDB )
-      :setUserName("usuario")
-      :setPassword("senha")
-   END WITH
-
-   IF !( oDB:open() )
-      QUIT
-   ENDIF
-
-   WITH OBJECT oModel := QSqlQueryModel():new( oWindow )
-      :setQuery("SELECT * FROM cidades ORDER BY nommun")
-   END WITH
-
-   WITH OBJECT oView := QTableView( oWindow )
-      :setModel( oModel )
-      :hideColumn(0) /* Hide 1st Col - 'Id' */
+   WITH OBJECT oTable := QTableWidget():new( nRows, nCols, oWindow )
+      :setAlternatingRowColors( .T. )
+      FOR r := 1 TO nRows
+         FOR c := 1 TO nCols
+            :setItem( r-1, c-1, QTableWidgetItem():new(alltrim(str(r))+","+alltrim(str(c))) )
+         NEXT c
+      NEXT r
    END WITH
 
    WITH OBJECT oWindow
-      :setCentralWidget( oView )
+      :setCentralWidget( oTable )
       :show()
    END WITH
 

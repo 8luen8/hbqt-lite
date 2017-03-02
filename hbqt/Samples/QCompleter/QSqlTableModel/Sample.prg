@@ -18,7 +18,7 @@ PROCEDURE Main ()
    LOCAL cDB := "cidades.db"
    LOCAL oApp
    LOCAL oDB
-   LOCAl oModel
+   LOCAL oModel
    LOCAL oWindow
    LOCAL oCompleter
    LOCAL oLineEdit
@@ -61,8 +61,7 @@ PROCEDURE Main ()
       :setCompletionColumn(2)
    END WITH
 
-
-   WITH OBJECT oLineEdit := QLineEdit():new(oWindow)
+   WITH OBJECT oLineEdit := QLineEdit():new( oWindow )
       :resize(200,20)
       :move(20,20)
    END WITH

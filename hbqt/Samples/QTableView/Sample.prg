@@ -78,11 +78,11 @@ PROCEDURE Main ()
       :setTable("cadastro")
       :setEditStrategy( QSqlTableModel_OnFieldChange )
       :select()
-      :setHeaderData( 1, Qt_Horizontal, QVariant():new("Nome") )
-      :setHeaderData( 2, Qt_Horizontal, QVariant():new("Idade") )
+      :setHeaderData( 1, Qt_Horizontal, QVariant():new( "Nome" ) )
+      :setHeaderData( 2, Qt_Horizontal, QVariant():new( "Idade" ) )
    END WITH
 
-   WITH OBJECT oView := QTableView()
+   WITH OBJECT oView := QTableView( oWindow )
       :setModel( oModel )
       :hideColumn(0) /* Hide 1st Col - 'Id' */
    END WITH
