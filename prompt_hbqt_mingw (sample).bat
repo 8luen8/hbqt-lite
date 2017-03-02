@@ -1,0 +1,26 @@
+@ECHO OFF
+
+set HB_PATH=C:\hb_mingw
+SET HB_BUILD_DEBUG=no
+SET HB_BUILD_DLL=yes
+SET HB_BUILD_IMPLIB=no
+SET HB_BUILD_MODE=cpp
+SET HB_BUILD_OPTIM=yes
+SET HB_BUILD_PKG=yes
+SET HB_QT_MAJOR_VER=5
+SET QT_PATH=C:\Qt\Qt5.6.0\5.6\mingw
+SET HB_WITH_QT=%QT_PATH%\include
+
+SET LIB=%HB_PATH%\lib
+SET Include=%HB_PATH%\Include
+
+GOTO Build_MingW
+
+:Build_MingW
+SET HB_COMPILER=mingw
+SET PATH=C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;%HB_PATH%\bin;%HB_PATH%\mingw\bin;%QT_PATH%\bin;C:\UTIL
+GOTO end
+
+:end
+HARBOUR -build
+%ComSpec%

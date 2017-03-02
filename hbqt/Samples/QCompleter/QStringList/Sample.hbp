@@ -1,0 +1,115 @@
+#
+# $Id$
+#
+
+#
+# Flags - hb
+#
+-cpp
+-es2
+-jobs=4
+-kmo
+-strip 
+-w3
+
+#
+# Debug
+# -b
+
+#
+# incremental build
+#
+-inc
+
+#
+# include folders
+#
+#-I
+
+#
+# lib folders
+#
+#-L
+
+#
+# Build - Temp Folder
+#
+#-workdir=C:\Temp
+
+#
+# Console/Gui
+# -std
+# -gui
+
+#
+# UPX
+#
+# -compr=def
+
+#
+# Build - Pause/Stop
+#
+-pause
+
+#
+# Build - Run after 
+#
+# -run
+
+#
+# gt class ( already in hbqt.hbc )
+#
+# -gtqtc
+# -gtgui
+
+#
+# Sample - .hbc File
+#
+Sample.hbc
+hbqt.hbc
+hbqtsql.hbc 
+
+#
+# Harbour Contrib - .hbc Files
+#
+# gtwvg.hbc
+
+#
+# Build - .exe file
+#
+-oSample
+
+#
+# main .prg
+#
+Sample.prg
+
+#
+# hbqt - .prg(s) project files
+#
+# ?.prg
+
+#
+# hb - prg(s) project files
+#
+# ?.PRG
+
+#
+# .C Files
+#
+# ?.c
+
+#
+# .ico Files
+#
+#-icon={allwin}?.ico
+
+#
+# .qrc Files
+#
+# ?.qrc
+
+#
+# .rc Files
+#
+# ?.rc

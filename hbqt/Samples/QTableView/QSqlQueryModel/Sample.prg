@@ -1,6 +1,6 @@
 // *---------------------------------------------------------------------------*
 //
-//   hbqt - Samples - Print to PDF Files
+//   hbqt - Samples - QTableView
 //
 //   Copyright (C) 2012-2017 hbQT
 //   Author: M.,Ronaldo <ronmesq@gmail.com>
@@ -16,11 +16,11 @@
 PROCEDURE Main ()
 
    LOCAL oApp
+   LOCAL oDB
+   LOCAL oModel
    LOCAL oWindow
-   LOCAL oPrinter
-   LOCAL oPainter
-   LOCAL cPDF := "testpdf.pdf"
-   LOCAL i
+   LOCAL oView
+   LOCAL cDB := "cidades.db"
 
    REQUEST HB_CODEPAGE_UTF8
    REQUEST HB_CODEPAGE_UTF8EX
@@ -31,34 +31,37 @@ PROCEDURE Main ()
    /* hbqt_errorsys() */
    hbqt_errorsys()
 
-   If File( cPDF )
-      Ferase( cPDF )
-   EndIf
-
    oApp := QApplication():new()
 
    WITH OBJECT oWindow := QMainWindow():new()
-      :setWindowTitle("hbqt: Print to PDF Files")
+      :setWindowTitle("hbqt: QTableView ( QSqlDatabase, QSqlQueryModel )")
       :resize(800,600)
    END WITH
-   oWindow:show()
 
-   WITH OBJECT oPrinter := QPrinter():new(QPrinter_HighResolution)
-      :setOutputFileName( cPDF )
+   WITH OBJECT oDB := QSqlDatabase():addDatabase( "QSQLITE" )
+      :setHostName("localhost")
+      :setDatabaseName( cDB )
+      :setUserName("usuario")
+      :setPassword("senha")
    END WITH
 
-   WITH OBJECT oPainter := QPainter():new()
-      :begin(oPrinter)
-      FOR i := 1 to 2
-         :drawText( 10, 10, "Page " + StrZero( i, 5) )
-         :drawRect( 0+100, 0+100, oPrinter:width()-100,oPrinter:height()-100)
-         :drawEllipse( 0+100, 0+100, oPrinter:width()-100,oPrinter:height()-100)
-         IF i < 2
-            oPrinter:newPage()
-         ENDIF
-      NEXT
+   IF !( oDB:open() )
+      QUIT
+   ENDIF
+
+   WITH OBJECT oModel := QSqlQueryModel():new( oWindow )
+      :setQuery("SELECT * FROM cidades ORDER BY nommun")
    END WITH
-   oPainter:end()
+
+   WITH OBJECT oView := QTableView( oWindow )
+      :setModel( oModel )
+      :hideColumn(0) /* Hide 1st Col - 'Id' */
+   END WITH
+
+   WITH OBJECT oWindow
+      :setCentralWidget( oView )
+      :show()
+   END WITH
 
    oApp:exec()
 

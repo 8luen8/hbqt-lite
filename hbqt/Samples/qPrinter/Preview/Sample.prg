@@ -22,11 +22,11 @@ PROCEDURE Main ()
    REQUEST HB_CODEPAGE_UTF8
    REQUEST HB_CODEPAGE_UTF8EX
 
-   /* hbqt_errorsys() */
-   hbqt_errorsys()
-
    SET( _SET_CODEPAGE, "UTF8EX" )
    hb_cdpSelect( "UTF8EX" )
+
+   /* hbqt_errorsys() */
+   hbqt_errorsys()
 
    oApp := QApplication():new()
 

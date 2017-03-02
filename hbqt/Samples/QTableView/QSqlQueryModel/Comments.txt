@@ -1,0 +1,5 @@
+#
+# Broken Sample
+# 
+
+QSqlQueryModel does not return any data
