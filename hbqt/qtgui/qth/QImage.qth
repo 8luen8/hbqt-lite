@@ -1,5 +1,5 @@
 /*
- * $Id: QImage.qth 160 2013-02-04 23:59:32Z bedipritpal $
+ * $Id: QImage.qth 451 2017-03-06 06:00:07Z bedipritpal $
  */
 
 /*
@@ -103,6 +103,7 @@ int depth () const
 int dotsPerMeterX () const
 int dotsPerMeterY () const
 void fill ( uint pixelValue )
+void fill(const QColor &color)                                         [*V=0x40800*]
 Format format () const
 bool hasAlphaChannel () const
 int height () const
