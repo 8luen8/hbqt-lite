@@ -1,5 +1,5 @@
 #
-# $Id: filelist.hbm 435 2016-11-16 16:36:11Z bedipritpal $
+# $Id: filelist.hbm 457 2017-10-12 03:34:02Z bedipritpal $
 #
 
 -pflag=-qtver=0x040500
@@ -8,7 +8,7 @@
 
 HBQString.qth
 
-# QAbstractEventDispatcher.qth
+QAbstractEventDispatcher.qth
 QAbstractAnimation.qth
 QAbstractItemModel.qth
 QAbstractListModel.qth

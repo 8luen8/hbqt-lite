@@ -1,5 +1,5 @@
 #
-# $Id: hbqt_common.hbc 450 2017-02-27 21:17:36Z bedipritpal $
+# $Id: hbqt_common.hbc 465 2017-10-28 22:57:32Z bedipritpal $
 #
 
 # ---------------------------------------------------------------
@@ -25,15 +25,17 @@ plugins=hbmk2_qt.hb
 
 # Static Builds 
 
-{HB_STATIC_QT&(HB_QT_MAJOR_VER='5')&(allwin)&(mingw)}cflags=-O2 -static -static-libgcc -std=c++11 -Wno-c++14-compat -momit-leaf-frame-pointer
+{HB_STATIC_QT&(HB_QT_MAJOR_VER='5')&(allwin)&(mingw)}cflags=-O2 -static -static-libgcc -momit-leaf-frame-pointer
 
 {HB_STATIC_QT&(HB_QT_MAJOR_VER='5')&(allwin)&(mingw)}ldflags=-static -static-libgcc -L${HB_WITH_QT}/../plugins/platforms -L${HB_WITH_QT}/../plugins/imageformats
 
-{HB_STATIC_QT&(HB_QT_MAJOR_VER='5')&(allwin)&(mingw)}libs=mingw32 opengl32 qtpcre qtfreetype qwindows qico
+{HB_STATIC_QT&(HB_QT_MAJOR_VER='5')&(allwin)&(mingw)}libs=mingw32 opengl32 qtfreetype qwindows qico qjpeg qtiff qgif
+{HB_STATIC_QT&(HB_QT_MAJOR_VER='5')&(HB_QT_MINOR_VER<'9')&(allwin)&(mingw)}libs=qtpcre 
+{HB_STATIC_QT&(HB_QT_MAJOR_VER='5')&(HB_QT_MINOR_VER>'8')&(allwin)&(mingw)}libs=qtpcre2 version
 #
-{HB_STATIC_QT&(HB_QT_MAJOR_VER='5')&!(HB_QT_MINOR_VER='8')&(allwin)&(mingw)}libs=qtharfbuzzng
+{HB_STATIC_QT&(HB_QT_MAJOR_VER='5')&(HB_QT_MINOR_VER<'8')&(allwin)&(mingw)}libs=qtharfbuzzng
 {HB_STATIC_QT&(HB_QT_MAJOR_VER='5')&(HB_QT_MINOR_VER='7')&(allwin)&(mingw)}libs=qtpng
-{HB_STATIC_QT&(HB_QT_MAJOR_VER='5')&(HB_QT_MINOR_VER='8')&(allwin)&(mingw)}libs=qtharfbuzz qtlibpng uxtheme dwmapi
+{HB_STATIC_QT&(HB_QT_MAJOR_VER='5')&(HB_QT_MINOR_VER>'7')&(allwin)&(mingw)}libs=qtharfbuzz qtlibpng uxtheme dwmapi
 
 
 #{win|os2}hbcppmm=yes
